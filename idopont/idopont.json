@@ -1,0 +1,6 @@
+{
+    "appointments": [
+      { "id": 1, "time": "2025-03-06T08:00", "name": "Teszt Elek", "phone": "+36301234567" },
+      { "id": 2, "time": "2025-03-06T10:00", "name": "Minta Péter", "phone": "+36309876543" }
+    ]
+}  
