@@ -84,7 +84,8 @@ const bookAppointment = async () => {
       phone: phone.value
     });
     selectedTime.value = null;
-
+    name.value = "";
+    phone.value = "";
   } catch (error) {
     console.error("Hiba a foglalás mentésekor:", error);
   }
