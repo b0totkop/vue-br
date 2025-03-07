@@ -88,9 +88,10 @@ const bookAppointment = async () => {
     selectedTime.value = null;
     name.value = "";
     phone.value = "";
-    toast.success("asd");
+    toast.success("Sikeres foglalás!");
   } catch (error) {
     console.error("Hiba a foglalás mentésekor:", error);
+    toast.error("Sikertelen foglalás!");
   }
 };
 
