@@ -56,11 +56,13 @@
 <script setup>
 import { computed, ref, onMounted } from "vue";
 import { useAppointmentStore } from "@/stores/appointment";
+import { useToast } from "vue-toastification";
 
 const store = useAppointmentStore();
 const name = ref("");
 const phone = ref("");
 const selectedTime = ref(null);
+const toast = useToast();
 
 onMounted(() => {
   store.fetchAppointments();
@@ -86,6 +88,7 @@ const bookAppointment = async () => {
     selectedTime.value = null;
     name.value = "";
     phone.value = "";
+    toast.success("asd");
   } catch (error) {
     console.error("Hiba a foglalás mentésekor:", error);
   }
