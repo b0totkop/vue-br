@@ -1,57 +1,57 @@
 <template>
-  <div class="container">
-    <h2>Időpontfoglalás</h2>
-    <h3>Válassz egy szabad időpontot:</h3>
-    <table class="timetable">
-      <thead>
-        <tr>
-          <th></th>
-          <th>Hétfő</th>
-          <th>Kedd</th>
-          <th>Szerda</th>
-          <th>Csütörtök</th>
-          <th>Péntek</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="hour in hours" :key="hour">
-          <td>{{ hour }}:00</td>
-          <td>
-            <button v-if="isAvailable(1, hour)" @click="selectTime(getSpot(1, hour))">Foglalás</button>
-          </td>
-          <td>
-            <button v-if="isAvailable(2, hour)" @click="selectTime(getSpot(2, hour))">Foglalás</button>
-          </td>
-          <td>
-            <button v-if="isAvailable(3, hour)" @click="selectTime(getSpot(3, hour))">Foglalás</button>
-          </td>
-          <td>
-            <button v-if="isAvailable(4, hour)" @click="selectTime(getSpot(4, hour))">Foglalás</button>
-          </td>
-          <td>
-            <button v-if="isAvailable(5, hour)" @click="selectTime(getSpot(5, hour))">Foglalás</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    
-    <div v-if="showModal" class="modal-overlay">
-      <div class="modal">
-        <h3>Kiválasztott időpont: {{ formatTime(selectedTime) }}</h3>
-        <form @submit.prevent="bookAppointment">
-          <div>
-            <label for="name">Név:</label>
-            <input id="name" v-model="name" type="text" required />
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Időpontfoglalás</h2>
+    <h3 class="text-center">Válassz egy szabad időpontot:</h3>
+    <div class="table-responsive">
+      <table class="table table-bordered text-center mt-3">
+        <thead class="table-dark">
+          <tr>
+            <th></th>
+            <th>Hétfő</th>
+            <th>Kedd</th>
+            <th>Szerda</th>
+            <th>Csütörtök</th>
+            <th>Péntek</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="hour in hours" :key="hour">
+            <td class="fw-bold">{{ hour }}:00</td>
+            <td v-for="day in [1, 2, 3, 4, 5]" :key="day">
+              <button v-if="isAvailable(day, hour)" @click="selectTime(getSpot(day, hour))" class="btn btn-primary btn-sm w-100">Foglalás</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div v-if="showModal" class="modal fade show d-block" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Kiválasztott időpont</h5>
           </div>
-          <div>
-            <label for="phone">Telefonszám:</label>
-            <input id="phone" v-model="phone" type="tel" required />
+          <div class="modal-body">
+            <p><strong>{{ formatTime(selectedTime) }}</strong></p>
+            <form @submit.prevent="bookAppointment">
+              <div class="mb-3">
+                <label for="name" class="form-label">Név:</label>
+                <input id="name" v-model="name" type="text" class="form-control" required />
+              </div>
+              <div class="mb-3">
+                <label for="phone" class="form-label">Telefonszám:</label>
+                <input id="phone" v-model="phone" type="tel" class="form-control" required />
+              </div>
+              <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-secondary me-2" @click="closeModal">Mégse</button>
+                <button type="submit" class="btn btn-success">Foglalás</button>
+              </div>
+            </form>
           </div>
-          <button type="submit">Foglalás</button>
-          <button type="button" @click="closeModal">Mégse</button>
-        </form>
+        </div>
       </div>
     </div>
+    <div v-if="showModal" class="modal-backdrop fade show"></div>
   </div>
 </template>
 
@@ -121,60 +121,13 @@ const isAvailable = (day, hour) => {
 </script>
 
 <style scoped>
-.container {
-  max-width: 800px;
-  margin: auto;
-  text-align: center;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-th, td {
-  padding: 10px;
-  border: 1px solid #ccc;
-}
-
-th {
-  background-color: #f4f4f4;
-}
-
-button {
-  padding: 10px;
-  cursor: pointer;
-  width: 100%;
-}
-
-button:disabled {
-  background-color: #ddd;
-  cursor: not-allowed;
-}
-
-.modal-overlay {
+.modal-backdrop {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  text-align: center;
-}
-
-.modal button {
-  margin: 10px;
-  width: auto;
+  z-index: 1040;
 }
 </style>
