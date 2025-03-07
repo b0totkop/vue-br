@@ -78,38 +78,31 @@ const bookAppointment = async () => {
   }
   try {
     await store.addAppointment({
-      time: selectedTime.value,
+      day: selectedTime.value.day,
+      hour: selectedTime.value.hour,
       name: name.value,
       phone: phone.value
     });
     selectedTime.value = null;
-    name.value = "";
-    phone.value = "";
+
   } catch (error) {
     console.error("Hiba a foglalás mentésekor:", error);
   }
 };
 
 const formatTime = (time) => {
-  return new Date(time).toLocaleString("hu-HU", {
-    weekday: "long",
-    hour: "2-digit",
-    minute: "2-digit"
-  });
+  const days = ["Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek"];
+  return `${days[time.day - 1]}, ${time.hour}:00`;
 };
 
-const hours = ["8", "9", "10", "11", "12", "13", "14", "15", "16"];
+const hours = [8, 9, 10, 11, 12, 13, 14, 15, 16];
 
 const getSpot = (day, hour) => {
-  const now = new Date();
-  now.setHours(hour, 0, 0, 0);
-  now.setDate(now.getDate() + ((day - now.getDay() + 7) % 7));
-  return now.toISOString();
+  return { day, hour };
 };
 
 const isAvailable = (day, hour) => {
-  const spotTime = getSpot(day, hour);
-  return availableSpots.value.includes(spotTime);
+  return availableSpots.value.some(spot => spot.day === day && spot.hour === hour);
 };
 </script>
 
