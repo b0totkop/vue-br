@@ -17,7 +17,7 @@ describe('Időpontfoglalás', () => {
   it('Elérhető, nem elérhető időpontok', () => {
     const store = useAppointmentStore();
     store.appointments = [
-      { day: 1, hour: 8, name: 'Teszt Elek', phone: '+1234567890' }
+      { day: 1, hour: 8, name: 'Teszt Elek', phone: '+36301234567' }
     ];
     
     const available = store.availableSpots;
@@ -33,7 +33,7 @@ describe('Időpontfoglalás', () => {
       store.appointments.push(appointment);
     };
     
-    await store.addAppointment({ day: 2, hour: 10, name: 'Teszt Elek', phone: '+1234567890' });
+    await store.addAppointment({ day: 2, hour: 10, name: 'Teszt Elek', phone: '+36301234567' });
     expect(store.appointments.some(a => a.day === 2 && a.hour === 10)).toBe(true);
   });
 });
