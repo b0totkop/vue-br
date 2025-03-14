@@ -1,6 +1,5 @@
 <template>
   <div class="container mt-5">
-    <h2 class="text-center mb-4">Időpontfoglalás</h2>
     <h3 class="text-center">Válassz egy szabad időpontot:</h3>
     <div class="table-responsive">
       <table class="table table-bordered text-center mt-3">
