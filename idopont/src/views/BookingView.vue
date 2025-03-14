@@ -67,6 +67,9 @@ const selectedTime = ref(null);
 const showModal = ref(false);
 const toast = useToast();
 
+const nameRegex = /^[A-Za-z]{1,}\s[A-Za-z]{2,}$/;
+const phoneRegex = /^\+?[1-9][0-9]{6,14}$/;
+
 onMounted(() => {
   store.fetchAppointments();
 });
@@ -87,6 +90,15 @@ const closeModal = () => {
 
 const bookAppointment = async () => {
   if (!name.value || !phone.value) {
+    toast.error("Minden mezőt ki kell tölteni!");
+    return;
+  }
+  if (!nameRegex.test(name.value)) {
+    toast.error("Érvénytelen név!");
+    return;
+  }
+  if (!phoneRegex.test(phone.value)) {
+    toast.error("Érvénytelen telefonszám!");
     return;
   }
   try {
