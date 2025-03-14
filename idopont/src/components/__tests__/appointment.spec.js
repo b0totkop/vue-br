@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import BookingView from '@/views/BookingView.vue'
+import HomeView from '@/views/HomeView.vue'
 import { useAppointmentStore } from '@/stores/appointment'
 import { createPinia, setActivePinia } from 'pinia'
 
@@ -10,7 +11,7 @@ describe('Időpontfoglalás', () => {
   });
 
   it('Megjelenik a cím', () => {
-    const wrapper = mount(BookingView);
+    const wrapper = mount(HomeView);
     expect(wrapper.text()).toContain('Időpontfoglalás');
   });
 
