@@ -3,7 +3,7 @@
       <div class="content d-flex flex-column align-items-center">
         <h1>Időpontfoglalás</h1>
         <router-link to="/booking">
-          <button class="btn btn-success mt-3">Tovább az időpontokra ></button>
+          <button class="btn btn-primary mt-3">Tovább az időpontokra ></button>
         </router-link>
       </div>
     </div>
